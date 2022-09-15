@@ -1,5 +1,4 @@
-
-const num_re = /^-?\d+(?:\.\d+)?$/m
+const num_re = /^-?\d+(?:[\.,]\d+)?$/m
 const XMin = -5;
 const XMax = 3;
 const YMin = -3;
@@ -9,66 +8,152 @@ function isWrongNumber(str_num) {
   return num_re.exec(str_num) == null
 }
 
-function isWrongXVar(str_num) {
-  if (isWrongNumber(str_num)) {
+function isWrongX(element) {
+  if (isWrongNumber(element.value)) {
     return true;
   } else {
-    var num = parseFloat(str_num);
-    return num < XMin || num > XMax;
+    var num = parseFloat(element.value.replace(",", "."));
+    return num <= XMin || num >= XMax;
   }
   return false;
 }
 
-function isWrongYVar(str_num) {
-  if (isWrongNumber(str_num)) {
+function isWrongY(element) {
+  if (isWrongNumber(element.value)) {
     return true;
   } else {
-    var num = parseFloat(str_num);
-    return num < YMin || num > YMax;
+    var num = parseFloat(element.value.replace(",", "."));
+    return num <= YMin || num >= YMax;
   }
   return false;
 }
 
-function onXVarInput() {
-  var XVar = document.getElementById('XVar');
+function isWrongR(element) {
+  return !element.checked;
+}
 
-  if (XVar.value.length && isWrongXVar(XVar.value)) {
-    XVar.style.borderColor = 'red';
+function onXInput() {
+  var X = document.getElementById("X");
+
+  if (X.value.length && isWrongX(X)) {
+    X.className = "wrong-field";
+  } else if (X.value.length) {
+    X.className = "correct-field";
   } else {
-    XVar.style.borderColor = 'black';
+    X.className = "empty-field";
   }
 }
 
-function onYVarInput() {
-  var YVar = document.getElementById('YVar');
+function onYInput() {
+  var Y = document.getElementById("Y");
 
-  if (YVar.value.length && isWrongYVar(YVar.value)) {
-    YVar.style.borderColor = 'red';
+  if (Y.value.length && isWrongY(Y)) {
+    Y.className = "wrong-field";
+  } else if (Y.value.length) {
+    Y.className = "correct-field";
   } else {
-    YVar.style.borderColor = 'black';
+    Y.className = "empty-field";
   }
 }
 
-/*
 function onSubmitForm() {
-    var xInput = document.getElementById("x-input");
-    if (xInput.value.substr(0, 5) === '#VT#:') {
-        setStrangePage(xInput.value.substr(5));
-        event.preventDefault();
-        return false;
+  event.preventDefault();
+  var X = document.getElementById("X");
+  var Y = document.getElementById("Y");
+
+  var RArray = Array.from(document.getElementsByName("r-input"));
+  var R = RArray[0];
+  for (var el of RArray) {
+    if (el.checked) {
+      R = el;
+      break;
     }
-    var yArray = Array.from(document.getElementById("y-table").children);
-    var rArray = Array.from(document.getElementById("r-table").children);
-    yArray.shift();
-    rArray.shift();
-    var err = isWrongArrayValues(yArray, yValues) ||
-        isWrongArrayValues(rArray, rValues) ||
-        xInput.value === '' ||
-        isWrongXValue(xInput);
-    if (err) {
-        event.preventDefault();
-        message("Wrong parameters!");
-    }
-    return !err;
+  }
+
+  var isError =
+    isWrongX(X) ||
+    isWrongY(Y) ||
+    isWrongR(R);
+
+  if (isError) {
+	  return isError;
+  }
+
+  $("#send").attr("disabled", true);
+
+  console.log($("#dataform").serialize() + "&timezone=" + new Date().getTimezoneOffset());
+  $.ajax({
+    url: "php/serverCalc.php",
+    method: "POST",
+    data: $("#dataform").serialize() + "&timezone=" + new Date().getTimezoneOffset(),
+    dataType: "html",
+
+    success: function(data){
+      console.log(data);
+      $("#send").attr("disabled", false);
+      $("#result-table>tbody").html(data);
+    },
+
+    error: function(error){
+      console.log(error);
+      $("#send").attr("disabled", false);
+    },
+  });
 }
-*/
+
+function load() {
+  $("#load").attr("disabled", true);
+
+  $.ajax({
+    url: "php/getTable.php",
+    method: "GET",
+    dataType: "html",
+
+    success: function(data){
+      console.log(data);
+      $("#load").attr("disabled", false);
+      $("#result-table>tbody").html(data);
+    },
+
+    error: function(error){
+      console.log(error);
+      $("#load").attr("disabled", false);
+    },
+  });
+
+}
+
+function onClickLoad() {
+  event.preventDefault();
+
+  load();
+}
+
+function clearTable() {
+  $("#clear").attr("disabled", true);
+
+  $.ajax({
+    url: "php/clearTable.php",
+    method: "GET",
+    dataType: "html",
+
+    success: function(data){
+      console.log(data);
+      $("#clear").attr("disabled", false);
+      $("#result-table>tbody").html(data);
+    },
+
+    error: function(error){
+      console.log(error);
+      $("#clear").attr("disabled", false);
+    },
+  });
+}
+
+function onClickClear() {
+  event.preventDefault();
+
+  clearTable();
+}
+
+load();

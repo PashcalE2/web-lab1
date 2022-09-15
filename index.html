@@ -3,57 +3,78 @@
 	<meta charset="utf-8">
 	<title>Title</title>
 	<link rel="stylesheet" href="css/styles.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="js/script.js"></script>
 </head>
 
 <body>
-	<!-- style="display: inline-block;" -->
-	<div class="max-sized">
-		<div class="header">
+	<div class="max-sized" id="main">
+		<div class="block" id="header">
 			<header>
-				Шипулин П.А. P32151 | Вариант: 1715<br>
+				Шипулин П.А. P32151 | Вариант: 1715
 			</header>
 		</div>
 
-		<div class="frame-center">
-			<img src="resources/areas-orig.png">
+		<div id="app">
+			<div class="block" id="frame-form">
+				<img id="areas" src="resources/areas-orig.png">
+				<form id="dataform" method="post" onsubmit="onSubmitForm()">
+					<p>
+						<label for="X">X</label>
+						<input class="empty-field" name="x-input" id="X" type="text" placeholder="-1.0" maxlength="7" oninput="onXInput()">
+					</p>
 
-			<form method="post" action="php/handler.php" onsubmit="onSubmitForm()">
+					<p>
+						<label for="Y">Y</label>
+						<input class="empty-field" name="y-input" id="Y" type="text" placeholder="3" maxlength="7" oninput="onYInput()">
+					</p>
+
+					<p>
+						R<br>
+						<input name="r-input" id="R1" type="radio" value="1" checked="true">
+						<label for="R1">1</label>
+
+						<input name="r-input" id="R2" type="radio" value="2">
+						<label for="R2">2</label>
+
+						<input name="r-input" id="R3" type="radio" value="3">
+						<label for="R3">3</label>
+
+						<input name="r-input" id="R4" type="radio" value="4">
+						<label for="R4">4</label>
+
+						<input name="r-input" id="R5" type="radio" value="5">
+						<label for="R5">5</label>
+					</p>
+
+					<p>
+						<input id="send" type="submit" value="Отправить">
+					</p>
+				</form>
 				<p>
-					<label for="XVar">X</label>
-					<input name="x-input" id="XVar" type="text" oninput="onXVarInput()">
+					<input id="load" type="submit" value="Загрузить историю" onclick="onClickLoad()">
+					<input id="clear" type="submit" value="Очистить историю" onclick="onClickClear()">
 				</p>
+			</div>
 
-				<p>
-					<label for="YVar">Y</label>
-					<input name="y-input" id="YVar" type="text" oninput="onYVarInput()">
-				</p>
+			<div class="block" id="result-block">
+				<table id="result-table">
+					<thead>
+						<tr>
+							<th>Значение X</th>
+							<th>Значение Y</th>
+							<th>Значение R</th>
+							<th>Ответ</th>
+							<th>Отправлено в</th>
+							<th>Время работы скрипта</th>
+						</tr>
+					</thead>
+					<tbody>
 
-				<p>
-					R<br>
-					<input name="r-input" id="RVar1" type="radio" value="1">
-					<label for="R1">1</label>
-
-					<input name="r-input" id="RVar2" type="radio" value="2">
-					<label for="R2">2</label>
-
-					<input name="r-input" id="RVar3" type="radio" value="3">
-					<label for="R3">3</label>
-
-					<input name="r-input" id="RVar4" type="radio" value="4">
-					<label for="R4">4</label>
-
-					<input name="r-input" id="RVar5" type="radio" value="5">
-					<label for="R5">5</label>
-				</p>
-
-				<p style="text-align: center;">
-					<input type="submit">
-				</p>
-
-			</form>
+					</tbody>
+				</table>
+			</div>
 		</div>
-
 	</div>
 
 </body>
