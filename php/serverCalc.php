@@ -19,13 +19,13 @@ function isValidR($num) {
 }
 
 function inArea1($x, $y, $r) {
-  return ($x >= -$r) && ($x <= 0)
+  return ($x >= -$r) && ($x <= 0) && ($y >= 0)
     && ($y <= $x + $r);
 }
 
 function inArea2($x, $y, $r) {
   return ($x >= -$r / 2) && ($x <= 0) && ($y <= 0)
-    && ($x * $x + $y * $y <= $r * $r);
+    && ($x * $x + $y * $y <= $r * $r / 4);
 }
 
 function inArea3($x, $y, $r) {

@@ -18,18 +18,18 @@
 		<div id="app">
 			<div class="block" id="frame-form">
 				<img id="areas" src="resources/areas-orig.png">
-				<form id="dataform" method="post" onsubmit="onSubmitForm()">
-					<p>
+				<form id="dataform" style="margin-block-end: 0;" method="post" onsubmit="onSubmitForm()">
+					<div class="input">
 						<label for="X">X</label>
 						<input class="empty-field" name="x-input" id="X" type="text" placeholder="-1.0" maxlength="7" oninput="onXInput()">
-					</p>
+					</div>
 
-					<p>
+					<div class="input">
 						<label for="Y">Y</label>
 						<input class="empty-field" name="y-input" id="Y" type="text" placeholder="3" maxlength="7" oninput="onYInput()">
-					</p>
+					</div>
 
-					<p>
+					<div class="input">
 						R<br>
 						<input name="r-input" id="R1" type="radio" value="1" checked="true">
 						<label for="R1">1</label>
@@ -45,16 +45,15 @@
 
 						<input name="r-input" id="R5" type="radio" value="5">
 						<label for="R5">5</label>
-					</p>
+					</div>
 
-					<p>
+					<div class="input">
 						<input id="send" type="submit" value="Отправить">
-					</p>
+					</div>
 				</form>
-				<p>
-					<input id="load" type="submit" value="Загрузить историю" onclick="onClickLoad()">
+				<div class="input">
 					<input id="clear" type="submit" value="Очистить историю" onclick="onClickClear()">
-				</p>
+				</div>
 			</div>
 
 			<div class="block" id="result-block">

@@ -28,10 +28,6 @@ function isWrongY(element) {
   return false;
 }
 
-function isWrongR(element) {
-  return !element.checked;
-}
-
 function onXInput() {
   var X = document.getElementById("X");
 
@@ -72,8 +68,7 @@ function onSubmitForm() {
 
   var isError =
     isWrongX(X) ||
-    isWrongY(Y) ||
-    isWrongR(R);
+    isWrongY(Y);
 
   if (isError) {
 	  return isError;
@@ -102,8 +97,6 @@ function onSubmitForm() {
 }
 
 function load() {
-  $("#load").attr("disabled", true);
-
   $.ajax({
     url: "php/getTable.php",
     method: "GET",
@@ -111,16 +104,13 @@ function load() {
 
     success: function(data){
       console.log(data);
-      $("#load").attr("disabled", false);
       $("#result-table>tbody").html(data);
     },
 
     error: function(error){
       console.log(error);
-      $("#load").attr("disabled", false);
     },
   });
-
 }
 
 function onClickLoad() {

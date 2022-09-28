@@ -14,7 +14,12 @@ div.block {
 
 div#app {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+
+div.input {
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 div.max-sized {
@@ -23,15 +28,17 @@ div.max-sized {
 }
 
 div#header {
+  min-width: 500px;
   font-family: serif;
   font-size: 24px;
+  color: #000000;
   padding-top: 10px;
   padding-bottom: 5px;
   border-bottom-style: solid;
 }
 
 div#frame-form {
-  width: 500px;
+  min-width: 500px;
   height: auto;
   border-right-style: solid;
   border-bottom-style: solid;
@@ -44,6 +51,7 @@ div#main {
 }
 
 div#result-block {
+  min-width: 500px;
   border-right-style: solid;
   border-bottom-style: solid;
   text-align: center;
