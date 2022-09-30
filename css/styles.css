@@ -76,7 +76,7 @@ img#areas {
   border-width: thin;
 }
 
-table, th, td {
+table, td, th {
   margin: 10px auto 10px auto;
   padding: 4px;
   border-style: solid;
@@ -87,10 +87,14 @@ table, th, td {
   background-color: #ffffff;
 }
 
+tbody {
+  font-weight: normal;
+}
+
 thead {
   font-weight: bold;
 }
 
-tbody {
-  font-weight: normal;
+td:hover {
+  background: #afdfff;
 }
